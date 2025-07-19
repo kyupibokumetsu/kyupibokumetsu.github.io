@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Proxy Search</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 1em; }
+    img { width: 100%; max-width: 320px; }
+    iframe { width: 100%; height: 360px; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>YouTube Proxy Search</h1>
+  <input id="query" type="text" placeholder="検索ワード">
+  <button onclick="search()">検索</button>
+  <div id="results"></div>
+  <iframe id="player" src="" allowfullscreen></iframe>
+
+  <script>
+    async function search() {
+      const query = document.getElementById('query').value;
+      const res = await fetch(`https://YOUR-WORKER-NAME.workers.dev/?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+
+      data.forEach(video => {
+        const div = document.createElement('div');
+        div.innerHTML = `<img src="${video.thumbnail}" alt="thumb"><br><button onclick="play('${video.url}')">▶ 再生</button>`;
+        results.appendChild(div);
+      });
+    }
+
+    function play(url) {
+      document.getElementById('player').src = url;
+    }
+  </script>
+</body>
+</html>
