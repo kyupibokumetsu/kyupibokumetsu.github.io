@@ -19,7 +19,7 @@
   <script>
     async function search() {
       const query = document.getElementById('query').value;
-      const res = await fetch(`https://YOUR-WORKER-NAME.workers.dev/?q=${encodeURIComponent(query)}`);
+      const res = await fetch(`https://holy-rain-10d5.ghz8pjrnqm.workers.dev/?q=${encodeURIComponent(query)}`);
       const data = await res.json();
 
       const results = document.getElementById('results');
